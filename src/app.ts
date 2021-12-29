@@ -32,10 +32,10 @@ app.post('/add', (req: Request,res: Response) => {
 
 //update product
 app.put('/update', (req: Request,res: Response) => {
-    let id = req.body.idProduct
-    let i = list.findIndex(data => data.id === id)
+    let i = list.findIndex(data => data.id === req.body.id)
+    list[i] = req.body
     return res.json(
-        list[i] = req.body
+        list
     )
 })
 

@@ -9,19 +9,19 @@ export const listProduct:Product[] = [
     {
        id:"1",
        price:3000,
-       name:"C 1 x",
+       name:"A 19",
        image:"https://gwatch.vn/wp-content/uploads/2021/04/gst-b200b-1adr_b06a8c17abda4529a7b188f489190f57_56e7731ff77c4dd5875e8bc780a57801_master-300x300.png"
     },
     {
        id:"2",
        price:100,
-       name:"D 2",
+       name:"A 27",
        image:"https://gwatch.vn/wp-content/uploads/2021/01/gst-b100rh-1adr_565af9b75ed843a8a6fedd35ea26e4e7_master-300x300.png"
     },
     {
        id:"3",
        price:100,
-       name:"D 3",
+       name:"A 13",
        image:"https://gwatch.vn/wp-content/uploads/2021/01/gba-800-2adr_master-300x300.png"
     },
     {
