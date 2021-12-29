@@ -30,7 +30,7 @@ app.post('/add', (req: Request,res: Response) => {
     )
 })
 
-//update product d
+//update product ds
 app.put('/update', (req: Request,res: Response) => {
     let i = list.findIndex(data => data.id === req.body.id)
     list[i] = req.body
