@@ -34,7 +34,6 @@ app.post('/add', (req: Request,res: Response) => {
 app.put('/update', (req: Request,res: Response) => {
     let i = list.findIndex(data => data.id === req.body.id)
     list[i] = req.body
-    
     return res.json(
         list
     )
