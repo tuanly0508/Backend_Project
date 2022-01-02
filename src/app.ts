@@ -2,6 +2,7 @@ import express, {Request, Response} from 'express'
 import { ListOrder } from './model/ListOrder'
 import { ListProduct } from './model/ListProduct'
 import { listProduct,Product } from './model/Product'
+import router from './routes/Route'
 
 const app = express()
 var cors = require('cors')
@@ -12,6 +13,7 @@ let order: ListOrder[] = []
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 app.use(cors())
+app.use(router)
 
 // delete product 
 app.get('/delete/:idProduct',(req: Request,res: Response) => {
