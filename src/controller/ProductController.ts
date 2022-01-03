@@ -1,11 +1,9 @@
 import { Request, Response } from "express";
 import {QueryResult} from 'pg'
 import {pool} from '../database'
-import { ListProduct } from "../model/ListProduct";
-import { Product } from "../model/Product";
+import { Pagination } from "../model/Pagination";
 import { createProduct, deleteProduct, getProduct, getProductDetail, updateProduct } from "../services/ProductService";
 
-let list:Product[] = []
 
 //get detail
 export const handleGetProductDetail = async (req:Request, res: Response) => {
@@ -41,7 +39,7 @@ export const handleUpdateProduct = async (req:Request, res: Response) => {
 
 //pagination
 export const getProductPagination = async (req:Request, res: Response) => {  
-    const listData : ListProduct = req.body
+    const listData : Pagination = req.body
     const {size,search,page,sort} = listData
     page||1
 

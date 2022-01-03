@@ -1,4 +1,4 @@
-export interface ListProduct {
+export interface Pagination {
     size: number,
     page: number,
     search: string,

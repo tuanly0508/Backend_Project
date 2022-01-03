@@ -1,6 +1,6 @@
-import { Request, response, Response } from "express";
+import { Request, Response } from "express";
 import { createCart, deleteCart, getCart, updateCart } from "../services/CartService";
-import { createOrder, deleteOrder } from "../services/OrderService";
+import { checkOrder } from "../services/OrderService";
 
 //get cart
 export const handleGetCart = async (req: Request, res:Response) => {
@@ -13,17 +13,16 @@ export const handleGetCart = async (req: Request, res:Response) => {
  
 //add cart
 export const handleCreateCart = async (req:Request, res: Response) => { 
-    const {idOrder,idProduct,quantity,price} = req.body
-    const data = await createCart(idOrder,idProduct,quantity,price)
-    await createOrder(idOrder,'1')
+    const {idProduct,quantity,price} = req.body
+    let i = await checkOrder()
+    const data = await createCart(i,idProduct,quantity,price)
     return res.json(data)
 }
 
 //delete cart
 export const handleDeleteCart = async (req:Request, res: Response) => {
-    const {idOrder, idUser} = req.params  
-    await deleteOrder(idOrder)
-    await deleteCart(idOrder)
+    const {idOrder, idUser,idProduct} = req.params
+    await deleteCart(idProduct)
     const dataCart = await getCart(idUser)
     return res.json(dataCart)
 }
