@@ -4,36 +4,47 @@ import { orderService } from "../services/OrderService";
 
 class CartController {
     //get cart
-    handleGetCart = async (req: Request, res:Response) => {
+    get = async (req: Request, res:Response) => {
         const {idUser} = req.params
-        const dataCart = await cartService.getCart(idUser)
+        const dataCart = await cartService.get(idUser)
         let totalPrice = this.price(dataCart)
         let listCart = {dataCart,totalPrice}
         res.status(200).json(listCart)
     }
     
     //add cart
-    handleCreateCart = async (req:Request, res: Response) => { 
+    create = async (req:Request, res: Response) => { 
         const {idProduct,quantity,price} = req.body
-        let i = await orderService.checkOrder()
-        const data = await cartService.createCart(i,idProduct,quantity,price)
-        return res.json(data)
+        let i = await orderService.checkEmpty()
+        let y = await cartService.checkEmpty()
+        let a = ''
+        let b = ''
+        y.map((item) => {
+            a = item.idOrder
+            b = item.idProduct    
+        })
+        if (a === i && b === idProduct) {
+            await cartService.update(quantity+1,idProduct)
+        }else {
+            const data = await cartService.create(i,idProduct,quantity,price)
+            return res.json(data)
+        }
     }
 
     //delete cart
-    handleDeleteCart = async (req:Request, res: Response) => {
-        const {idOrder, idUser,idProduct} = req.params
-        await cartService.deleteCart(idProduct)
-        const dataCart = await cartService.getCart(idUser)
+    delete = async (req:Request, res: Response) => {
+        const {idUser,idProduct} = req.params
+        await cartService.delete(idProduct)
+        const dataCart = await cartService.get(idUser)
         return res.json(dataCart)
     }
 
     //update cart
-    handleUpdateCart = async (req:Request, res: Response) => {
+    update = async (req:Request, res: Response) => {
         const {idOrder,idUser,quantity} = req.params
         let y =  parseInt(quantity)  
-        await cartService.updateCart(y,idOrder)
-        let dataCart = await cartService.getCart(idUser)
+        await cartService.update(y,idOrder)
+        let dataCart = await cartService.get(idUser)
         let totalPrice = this.price(dataCart)
         let listCart = {dataCart,totalPrice}
         return res.json(listCart)

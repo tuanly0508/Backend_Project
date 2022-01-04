@@ -7,28 +7,28 @@ import { userController } from "../controller/UserController";
 const router = Router()
 
 //user
-router.get('/users', userController.getUsers);
-router.get('/users/detail/:idUser', userController.getUserDetail)
-router.post('/users/create', userController.createUser)
-router.get('/users/delete/:idUser', userController.deleteUser)
-router.put('/users/update', userController.handleUpdateUser)
+router.put('/users/update', userController.update)
+router.get('/users/detail/:idUser', userController.getById)
+// router.get('/users', userController.get);
+// router.post('/users/create', userController.create)
+// router.get('/users/delete/:idUser', userController.delete)
 
 //product
-router.post('/products/list', productController.getProductPagination)
-router.get('/products/detail/:idProduct', productController.handleGetProductDetail)
-router.post('/products/create', productController.handleCreateProduct)
-router.get('/products/delete/:idProduct', productController.handleDeleteProduct)
-router.put('/products/update/:idProduct', productController.handleUpdateProduct)
+router.post('/products/list', productController.list)
+router.get('/products/detail/:idProduct', productController.getById)
+router.post('/products/create', productController.create)
+router.get('/products/delete/:idProduct', productController.delete)
+router.put('/products/update/:idProduct', productController.update)
 
 //cart
-router.get('/carts/:idUser', cartController.handleGetCart)
-router.post('/carts/create', cartController.handleCreateCart)
-router.get('/carts/delete/:idProduct/:idUser', cartController.handleDeleteCart)
-router.put('/carts/update/:idOrder/:idUser/:quantity', cartController.handleUpdateCart)
+router.get('/carts/:idUser', cartController.get)
+router.post('/carts/create', cartController.create)
+router.get('/carts/delete/:idProduct/:idUser', cartController.delete)
+router.put('/carts/update/:idOrder/:idUser/:quantity', cartController.update)
 
 //order
-router.put('/orders/update/:idOrder/:idUser', orderController.handleUpdateStatusOrder)
-router.post('/orders/:idUser', orderController.handleGetOrder)
-router.post('/orders/create', orderController.handleCreateOrder)
+router.put('/orders/update/:idOrder/:idUser', orderController.update)
+router.post('/orders/:idUser', orderController.list)
+router.post('/orders/create', orderController.create)
 
 export default router;

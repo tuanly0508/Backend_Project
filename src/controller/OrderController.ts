@@ -6,10 +6,10 @@ import { orderService } from "../services/OrderService";
 class OrderController {
 
     //get order
-    handleGetOrder = async (req: Request, res:Response) => {
+    list = async (req: Request, res:Response) => {
         const pagination: Pagination = req.body
         const {size,page} = pagination
-        let data = await orderService.getOrder('1',page,size)
+        let data = await orderService.list('1',page,size)
 
         //page count
         let pageCount = 0
@@ -71,16 +71,16 @@ class OrderController {
     } 
 
     //update status order
-    handleUpdateStatusOrder = async (req:Request, res: Response) => {
+    update = async (req:Request, res: Response) => {
         const {idOrder} = req.params
-        let data = await orderService.updateStatusOrder(idOrder,'1')
+        let data = await orderService.update(idOrder,'1')
         return res.json(data)
     }
 
     //create order  
-    handleCreateOrder = async (req:Request, res: Response) => {
+    create = async (req:Request, res: Response) => {
         const {idOrder} = req.body
-        let data = await orderService.createOrder(idOrder,'1')
+        let data = await orderService.create(idOrder,'1')
         return res.json(data)
     } 
 }

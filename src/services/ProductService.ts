@@ -3,7 +3,7 @@ import {pool} from '../database'
 
 class ProductService {
 
-    getProduct = async(search:string,field:string,sort:string,page:number,size:number) => {
+    get = async(search:string,field:string,sort:string,page:number,size:number) => {
         const listProduct: QueryResult = await pool.query(`SELECT * FROM product 
         where "nameProduct" like
 	        case when length($1) > 0 then '%`+search.toLocaleUpperCase()+`%' else '%%' end
@@ -18,22 +18,22 @@ class ProductService {
         return {listProduct,pageCount}
     }
 
-    getProductDetail = async(idProduct:string) => {
+    getById = async(idProduct:string) => {
         const response: QueryResult = await pool.query('SELECT * FROM product where "idProduct" = $1',[idProduct])
         return response.rows
     }
 
-    createProduct = async(idProduct:string,nameProduct:string,price:number,image:string) => {
+    create = async(idProduct:string,nameProduct:string,price:number,image:string) => {
         const response: QueryResult = await pool.query('INSERT INTO product ("idProduct","nameProduct","price","image") VALUES ($1,$2,$3,$4)', [idProduct,nameProduct,price,image])
         return response.rows
     }
 
-    deleteProduct = async(idProduct:string) => {
+    delete = async(idProduct:string) => {
         const response: QueryResult = await pool.query('DELETE FROM product where "idProduct"=$1', [idProduct])
         return response.rows
     } 
 
-    updateProduct = async(nameProduct:string,price:number,image:string,idProduct:string) => {
+    update = async(nameProduct:string,price:number,image:string,idProduct:string) => {
         const response: QueryResult = await pool.query('UPDATE product set "nameProduct"=$1,price=$2,image=$3 where "idProduct"=$4', [nameProduct,price,image,idProduct])
         return response.rows
     }
