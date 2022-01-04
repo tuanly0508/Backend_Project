@@ -1,17 +1,17 @@
 import { Request, Response } from "express";
 import {QueryResult} from 'pg'
 import {pool} from '../database'
-import { getUser } from "../services/UserService";
+import { getUser, updateUser } from "../services/UserService";
 
 // export const getUsers = async (req:Request, res: Response) => {
 //     const response: QueryResult = await pool.query('SELECT * FROM buyUser')
 //     res.status(200).json(response.rows) 
 // }
 
-export const updateUser = async (req:Request, res: Response) => {
+export const handleUpdateUser = async (req:Request, res: Response) => {
     const {idUser,nameUser,email,phone,address} = req.body
-    const response: QueryResult = await pool.query('UPDATE buyUser set "nameUser"=$1,email=$2,phone=$3,address=$4 where "idUser"=$5', [nameUser,email,phone,address,idUser])
-    return res.json(response.rows)
+    const data = await updateUser(nameUser,email,phone,address,idUser)
+    return res.json(data)
 }
 
 export const getUserDetail = async (req:Request, res: Response) => {

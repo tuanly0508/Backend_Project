@@ -2,7 +2,7 @@ import { Router } from "express";
 import { handleCreateCart, handleDeleteCart, handleGetCart, handleUpdateCart} from "../controller/CartController";
 import { handleCreateOrder, handleGetOrder, handleUpdateStatusOrder } from "../controller/OrderController";
 import { handleCreateProduct, handleDeleteProduct, handleGetProductDetail, getProductPagination, handleUpdateProduct } from "../controller/ProductController";
-import { getUserDetail, updateUser} from '../controller/UserController'
+import { getUserDetail, handleUpdateUser} from '../controller/UserController'
 import { checkOrder } from "../services/OrderService";
 
 const router = Router()
@@ -15,7 +15,7 @@ router.get('/check', checkOrder)
 router.get('/users/detail/:idUser', getUserDetail)
 // router.post('/users/create', createUser)
 // router.get('/users/delete/:idUser', deleteUser)
-router.put('/users/update', updateUser)
+router.put('/users/update', handleUpdateUser)
 
 //product
 router.get('/products/detail/:idProduct', handleGetProductDetail)
@@ -31,7 +31,7 @@ router.put('/carts/update/:idOrder/:idUser/:quantity', handleUpdateCart)
 
 //order
 router.put('/orders/update/:idOrder/:idUser', handleUpdateStatusOrder)
-router.get('/orders/:idUser', handleGetOrder)
+router.post('/orders/:idUser', handleGetOrder)
 router.post('/orders/create', handleCreateOrder)
 
 export default router;

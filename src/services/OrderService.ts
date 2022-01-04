@@ -7,9 +7,10 @@ export const createOrder = async(idOrder:string,idUser:string) => {
     return response.rows
 }
 
-export const getOrder = async(idUser:string) => {
-    const response: QueryResult = await pool.query('select a."idOrder",a."idUser","timeAt",b."idProduct" ,quantity ,b.price, c."nameProduct" ,c.image,d."nameUser" ,d.email ,d.phone ,d.address from ordertemp a join orderproduct b on a."idOrder" = b."idOrder" join product c on c."idProduct" = b."idProduct" join buyuser d on d."idUser" = a."idUser" where "isTemp" = false and a."idUser" = $1',[idUser])
-    return response.rows
+export const getOrder = async(idUser:string,page:number,size:number) => {
+    const listOrder: QueryResult = await pool.query('select a."idOrder",a."idUser","timeAt",b."idProduct" ,quantity ,b.price, c."nameProduct" ,c.image,d."nameUser" ,d.email ,d.phone ,d.address from ordertemp a join orderproduct b on a."idOrder" = b."idOrder" join product c on c."idProduct" = b."idProduct" join buyuser d on d."idUser" = a."idUser" where "isTemp" = false and a."idUser" = $1 and a."idOrder" in ( SELECT "idOrder" FROM ordertemp where "isTemp" = false order by "timeAt" desc OFFSET (($2-1)*$3) rows FETCH NEXT $3 ROWS only )order by "timeAt" desc',[idUser,page,size])
+    const pageCount: QueryResult = await pool.query('select CASE when count(*)%$1 = 0 then count(*)/$1 else count(*)/$1+1 end from ordertemp where "isTemp" = false',[size])
+    return {listOrder,pageCount}
 }
 
 export const deleteOrder = async(idOrder:string) => {

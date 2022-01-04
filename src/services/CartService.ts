@@ -6,10 +6,10 @@ export const getCart = async(idUser: string) => {
     return response.rows
 }
     
-export const createCart = async(idOrder:string|number,idProduct:string,quantity:number,price:number) => { 
+export const createCart = async(idOrder:string|number,idProduct:string,quantity:number,price:number) => {
+    const response: QueryResult = await pool.query('INSERT INTO orderProduct ("idOrder","idProduct",quantity,price) VALUES ($1,$2,$3,$4)', [idOrder,idProduct,quantity,price])
     console.log(idOrder);
     
-    const response: QueryResult = await pool.query('INSERT INTO orderProduct ("idOrder","idProduct",quantity,price) VALUES ($1,$2,$3,$4)', [idOrder,idProduct,quantity,price])
     return response.rows
 }
 
@@ -18,7 +18,7 @@ export const deleteCart = async(idProduct:string) => {
     return response.rows
 }
 
-export const updateCart = async(quantity:number,idOrder:string) => {
-    const response: QueryResult = await pool.query('UPDATE orderProduct set quantity=$1 where "idOrder"=$2', [quantity,idOrder])
+export const updateCart = async(quantity:number,idProduct:string) => {
+    const response: QueryResult = await pool.query('UPDATE orderProduct set quantity=$1 where "idProduct"=$2', [quantity,idProduct])
     return response.rows
 }
