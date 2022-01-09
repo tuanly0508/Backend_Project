@@ -1,6 +1,8 @@
 import express, {Request, Response} from 'express'
 import router from './routes/Route'
+import dotenv from 'dotenv'
 
+dotenv.config()
 const app = express()
 var cors = require('cors')
 

@@ -7,8 +7,10 @@ import { userController } from "../controller/UserController";
 const router = Router()
 
 //user
+router.post('/users/login', userController.login)
 router.put('/users/update', userController.update)
 router.get('/users/detail/:idUser', userController.getById)
+router.get('/users/getMe' ,userController.authToken,userController.getMe)
 // router.get('/users', userController.get);
 // router.post('/users/create', userController.create)
 // router.get('/users/delete/:idUser', userController.delete)
@@ -21,14 +23,14 @@ router.get('/products/delete/:idProduct', productController.delete)
 router.put('/products/update/:idProduct', productController.update)
 
 //cart
-router.get('/carts/:idUser', cartController.get)
+router.get('/carts/:idUser', userController.authToken,cartController.get)
 router.post('/carts/create', cartController.create)
 router.get('/carts/delete/:idProduct/:idUser', cartController.delete)
-router.put('/carts/update/:idOrder/:idUser/:quantity', cartController.update)
+router.put('/carts/update/:idOrder/:idUser/:quantity', cartController.update) 
 
 //order
 router.put('/orders/update/:idOrder/:idUser', orderController.update)
-router.post('/orders/:idUser', orderController.list)
+router.post('/orders/:idUser', userController.authToken,orderController.list)
 router.post('/orders/create', orderController.create)
 
 export default router;
